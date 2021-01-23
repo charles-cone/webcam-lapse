@@ -1,0 +1,133 @@
+/*Hide Arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.display_text {
+    font-family: Arial, serif;
+    font-size: large;
+
+    color: #1E212B;
+}
+
+.error_text {
+    font-family: Arial, serif;
+    font-size: xx-large;
+
+    color: crimson;
+}
+
+.error_description {
+    font-family: Arial, serif;
+    font-size: large;
+    color: #1E212B;
+}
+.center {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.small_button {
+    /* Fix for mobile safari*/
+    -webkit-appearance: none;
+
+    text-align: center;
+
+    width: 35%;
+
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+    padding: 2%;
+    border: none;
+
+    border-radius: 4px;
+
+    background-color: #2081C3;
+
+}
+
+.big_button {
+    -webkit-appearance: none;
+
+    text-align: center;
+
+    height: 7%;
+    width: 100%;
+
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+    padding: 0;
+    border: none;
+
+    border-radius: 4px;
+
+    background-color: #2081C3;
+}
+
+.big_select {
+    width: 35%;
+    height: 7%;
+
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.big_input {
+    text-align: center;
+
+    width: 60%;
+    height: 7%;
+
+    border-color: transparent;
+    border-bottom: 2px solid #1E212B;
+
+    background-color: transparent;
+    padding: 0;
+
+    font-size: large;
+    font-family: Arial, serif;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+img {
+    height: auto;
+    width: 100%;
+}
+
+h1 {
+    font-family: Arial, serif;
+    font-size: large;
+    color: #1E212B;
+
+    margin-top: 0;
+    margin-bottom: 1%;
+}
+
+form {
+    text-align: center;
+}
+
+a {
+    font-family: Arial, serif;
+    font-size: medium;
+
+    opacity: 70%;
+    color: #1E212B;
+}
+
+footer {
+    text-align: center;
+}

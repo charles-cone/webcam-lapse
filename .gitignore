@@ -1,0 +1,6 @@
+venv
+.idea
+web/site/.idea
+data/lapses/*
+data/camera_config.json
+scratch.py
