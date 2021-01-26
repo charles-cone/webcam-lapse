@@ -14,9 +14,7 @@ Install `fswebcam` and `pip install -r requirements.txt` then `sudo run python3 
 If GPIO is not needed the `--privliged` and `sudo` can be omitted 
 
 ## Screenshots:
-Main Page
 <img src="/github_images/main.png" width="281"> </img>
-Configuration Page
 <img src="/github_images/config.png" width="281"> </img>
 
 
