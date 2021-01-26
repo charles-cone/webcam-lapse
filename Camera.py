@@ -8,10 +8,13 @@ class Camera():
     __has_GPIO = False
 
     def __init__(self, c_config):
-        Camera.__config = c_config
-        Camera.__camera_controller = self._controller_factory()(c_config)
+        if Camera.__camera_controller != None:
+            self.update_config(c_config)
+        else:
+            Camera.__config = c_config
+            Camera.__camera_controller = self._controller_factory(c_config)
 
-    def _controller_factory(self):
+    def _controller_factory(self, c_config):
         del Camera.__camera_controller
 
         try:
@@ -25,7 +28,7 @@ class Camera():
         has_gpio = Camera.__has_GPIO
 
         class CameraController():
-            def __init__(self, c_config):
+            def __init__(self):
                 self.x_res = c_config.x_res
                 self.y_res = c_config.y_res
 
@@ -36,13 +39,13 @@ class Camera():
 
         if config.do_control_power and has_gpio:
             class RelayController(CameraController):
-                def __init__(self, c_config):
+                def __init__(self):
                     self.power_pin = c_config.power_pin
                     self.do_delay = c_config.do_power_wait
                     self.delay_secs = c_config.power_wait_ticks / 1000  # ticks to secs
 
                     GPIO.setup(self.power_pin, GPIO.OUT)
-                    super().__init__(c_config)
+                    super().__init__()
 
                 def __del__(self):
                     GPIO.cleanup()
@@ -56,11 +59,11 @@ class Camera():
                     GPIO.output(self.power_pin, GPIO.OUT)
                     return photo_time + self.delay_secs
 
-            return RelayController
+            return RelayController()
 
         elif config.do_control_shutter and has_gpio:
             class ExternalController(CameraController):
-                def __init__(self, c_config):
+                def __init__(self):
                     self.power_pin = c_config.power_pin
                     self.do_power_delay = c_config.do_power_wait
                     self.power_delay_secs = c_config.power_wait_ticks / 1000  # ticks to secs
@@ -69,7 +72,7 @@ class Camera():
                     self.do_shutter_delay = c_config.do_shutter_wait
                     self.shutter_delay_secs = c_config.shutter_wait_ticks / 1000
 
-                    super().__init__(c_config)
+                    super().__init__()
 
                 def __del__(self):
                     GPIO.cleanup()
@@ -86,14 +89,15 @@ class Camera():
                     GPIO.output(self.shutter_pin, GPIO.LOW)
                     GPIO.output(self.power_pin, GPIO.LOW)
 
-            return ExternalController
+            return ExternalController()
         else:
-            return CameraController
+            return CameraController()
 
-    def take_photo(self, c_config, path):
+    def update_config(self, config):
         # check if config is changed, and adjust camera interface object accordingly
-        if Camera.__config != c_config:
-            Camera.__config = c_config
-            self._controller_factory()
+        if Camera.__config != config:
+            Camera.__config = config
+            Camera.__camera_controller = self._controller_factory(config)
 
+    def take_photo(self, path):
         return Camera.__camera_controller.take_photo(path)

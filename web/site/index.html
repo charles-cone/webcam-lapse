@@ -3,40 +3,40 @@
 
 <body>
 <!-- IMAGE PREVIEW -->
-    <div>
-        <h1>Preview: </h1>
-        <img class="center" src="preview.jpg" alt="">
-        <button class="big_button display_text" onClick="window.location.reload();" > Refresh </button>
-    </div>
+<div>
+    <h1>Preview: </h1>
+    <img class="center" src="preview.jpg" alt="">
+    <button class="large_button button display_text" onClick="window.location.reload();" > Refresh </button>
+</div>
 
 <!-- DATA ENTRY -->
-    <div>
-        <form action="/" method="post" style="padding: 0">
-            <label for="d_len"></label><input class="big_input" placeholder="Lapse Time" type="number" id="d_len" name="d_len">
-            <label>
-                <select class="big_select display_text" name=d_units>
-                    <option value="sec">Seconds</option>
-                    <option value="min">Minutes</option>
-                    <option value="hou">Hours</option>
-                </select>
-            </label> <br/>
+<div>
+    <form action="/" method="post" style="padding: 0">
+        <label for="d_len"></label><input class="large_input input display_text" placeholder="Lapse Time" type="number" id="d_len" name="d_len" required>
+        <label>
+            <select class="large_select display_text" name=d_units>
+                <option value="sec">Seconds</option>
+                <option value="min">Minutes</option>
+                <option value="hou">Hours</option>
+            </select>
+        </label> <br/>
 
-            <label for="i_len"></label><input class="big_input" placeholder="Photo Interval" type="number" id="i_len" name="i_len">
-            <label>
-                <select class="big_select display_text" name=i_units>
-                    <option value="sec">Seconds</option>
-                    <option value="min">Minutes</option>
-                    <option value="hou">Hours</option>
-                </select>
-            </label> <br/>
+        <label for="i_len"></label><input class="large_input input display_text" placeholder="Photo Interval" type="number" id="i_len" name="i_len" required>
+        <label>
+            <select class="large_select display_text" name=i_units>
+                <option value="sec">Seconds</option>
+                <option value="min">Minutes</option>
+                <option value="hou">Hours</option>
+            </select>
+        </label> <br/>
 
-            <input class="big_button display_text" type="submit" value = Start! />
-        </form>
-    </div>
+        <input class="large_button button display_text" type="submit" value = Start! />
+    </form>
+</div>
 
 <!-- SETTINGS LINK -->
-    <footer>
-        <a href="/config"> Camera Config</a>
-    </footer>
+<footer>
+    <a class="display_text link_text" href="/config"> Camera Config</a>
+</footer>
 </body>
 </html>

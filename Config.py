@@ -33,7 +33,7 @@ class LapseConfig(Config):
 
     def update_data(self, p_data):
         data = self.parse_post_data(p_data)
-        if not data:
+        if not ('i_len' in data.keys() and 'd_len' in data.keys()):
             return "No Data"
 
         i_ticks = self._get_ticks(data['i_len'], data['i_units'])
@@ -83,23 +83,22 @@ class CaptureConfig(Config):
 
     def update_data(self, p_data):
         data = self.parse_post_data(p_data)
-        if not data:
-            return "No Data"
+        if data:
+            self.load_post_data(data)
+            error = ""
+            if self.do_control_power and not self.power_pin in range(0, 29):
+                error += f" Power pin: {self.power_pin} is not a valid WiringPi pin\n"
 
-        self.load_post_data(data)
-        error = ""
-        if self.do_control_power and not self.power_pin in range(0, 29):
-            error += f" Power pin: {self.power_pin} is not a valid WiringPi pin\n"
+            if self.do_control_shutter and not self.shutter_pin in range(0, 29):
+                error += f" Shutter pin: {self.shutter_pin} is not a valid WiringPi pin\n"
 
-        if self.do_control_shutter and not self.shutter_pin in range(0, 29):
-            error += f" Shutter pin: {self.shutter_pin} is not a valid WiringPi pin\n"
+            if error:
+                self.load_json()  # load in old config
+            else:
+                self.serialize_data() # save the new config
 
-        if error:
-            self.load_json()  # load in old config
-        else:
-            self.serialize_data() # save the new config
+            return error
 
-        return error
 
     def serialize_data(self):
         with open("data/camera_config.json", 'w') as f:

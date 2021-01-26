@@ -2,55 +2,55 @@
 <link rel="stylesheet" href="styles.css">
 <html lang="en">
 <body>
-    <h1>Camera Setup</h1>
-    <form action="/config" method="post">
-        <a class="display_text">General Settings: </a><br>
-        <input class="" type="checkbox" id="c_power" name="c_power" value="1">
-        <label class="display_text" for="c_power"> Control camera power</label>
-        <input class="" type="number" id="c_pin" name="c_pin" placeholder="Pin number">
-        <label class="" for="c_pin"></label>
-        <a>{}</a><br>
+<h1>Camera Setup</h1>
+<form action="/config" method="post">
+    <a class="display_text">General Settings: </a><br>
+    <input class="" type="checkbox" id="c_power" name="c_power" value="1">
+    <label class="display_text" for="c_power"> Control camera power</label>
+    <input class="small_input input display_text" type="number" id="c_pin" name="c_pin" placeholder="Pin number">
+    <label class="" for="c_pin"></label>
+    <a class="current_value display_text">{}</a><br>
 
-        <input class="" type="checkbox" id="p_time" name="p_time" value="1">
-        <label class="display_text" for="p_time"> Use camera power delay (ms)</label>
-        <input class="" type="number" id="p_ticks" name="p_ticks" placeholder="Delay">
-        <label class="" for="p_ticks"></label>
-        <a class="Display Text">{}</a>
-        <br>
-        <br>
+    <input class="" type="checkbox" id="p_time" name="p_time" value="1">
+    <label class="display_text" for="p_time"> Use camera power delay (ms)</label>
+    <input class="small_input input display_text" type="number" id="p_ticks" name="p_ticks" placeholder="Delay">
+    <label class="" for="p_ticks"></label>
+    <a class="current_value display_text">{}</a>
+    <br>
+    <br>
 
-        <a class="display_text">Internal Camera Settings: </a><br>
-        <label class="display_text" for="x_res"> Camera X Resolution: </label>
-        <input type="number" id="x_res" name="x_res" placeholder="Pix">
-        <a class="Display Text">{}</a><br>
-        <label class="display_text" for="y_res"> Camera Y Resolution: </label>
-        <input type="number" id="y_res" name="y_res" placeholder="Pix">
-        <a class="Display Text">{}</a>
-        <br>
-        <br>
+    <a class="display_text">Internal Camera Settings: </a><br>
+    <label class="display_text" for="x_res"> Camera X Resolution: </label>
+    <input class="small_input input display_text" type="number" id="x_res" name="x_res" placeholder="Pix">
+    <a class="current_value display_text">{}</a><br>
+    <label class="display_text" for="y_res"> Camera Y Resolution: </label>
+    <input class="small_input input display_text" type="number" id="y_res" name="y_res" placeholder="Pix">
+    <a class="current_value display_text">{}</a>
+    <br>
+    <br>
 
-        <a class="display_text">External Camera Settings: </a><br>
-        <input type="checkbox" id="c_shutter" name="c_shutter" value="1">
-        <label class="display_text" for="c_shutter"> Control camera shutter </label>
-        <input type="number" id="s_pin" name="s_pin" placeholder="Pin number">
-        <label for="s_pin"></label>
-        <a class="Display Text">{}</a>
-        <br>
+    <a class="display_text">External Camera Settings: </a><br>
+    <input type="checkbox" id="c_shutter" name="c_shutter" value="1">
+    <label class="display_text" for="c_shutter"> Control camera shutter </label>
+    <input class="small_input input display_text" type="number" id="s_pin" name="s_pin" placeholder="Pin number">
+    <label for="s_pin"></label>
+    <a class="current_value display_text">{}</a>
+    <br>
 
-        <input class="" type="checkbox" id="s_time" name="s_time" value="1">
-        <label class="display_text" for="s_time"> Use camera shutter delay (ms)</label>
-        <input class="" type="number" id="s_ticks" name="s_ticks" placeholder="Delay">
-        <label class="" for="s_ticks"></label>
-        <a class="Display Text">{}</a>
-        <br>
+    <input class="" type="checkbox" id="s_time" name="s_time" value="1">
+    <label class="display_text" for="s_time"> Use camera shutter delay (ms)</label>
+    <input class="small_input input display_text" type="number" id="s_ticks" name="s_ticks" placeholder="Delay">
+    <label class="" for="s_ticks"></label>
+    <a class="current_value display_text">{}</a>
+    <br>
 
-        
-        <input class="small_button display_text" type="submit" value= Save />
-    </form> <br>
+
+    <input class="small_button button display_text" type="submit" value= Save />
+</form> <br>
 
 </body>
 
 <footer>
-    <a href="/"> Return </a>
+    <a class="display_text link_text" href="/"> Return </a>
 </footer>
 </html>

@@ -22,10 +22,11 @@ class PreviewFile(ServerFile):
         self.content_type = "image/jpg"
         self.config = c_config
         self.path = path
+        self.cam = Camera(self.config)
 
     def get_file(self):
-        cam = Camera(self.config)
-        cam.take_photo(self.config, self.path)
+        self.cam.update_config(self.config)
+        self.cam.take_photo(self.path)
         with open(self.path, 'rb') as f:
             return f.read()
 

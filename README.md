@@ -17,10 +17,15 @@ If GPIO is not needed the `--privliged` and `sudo` can be omitted
 
 ## Screenshots:
 ___
-
+Main Page
+![main page](/github_images/main.png)
+Configuration Page
+![config page](/github_images/config.png)
 
 
 ## Misc:
 ___
+### About:
+- I wrote this to take photos with an old security camera I was gifted.
 ### Shortcomings:
-- Should really be rewritten as a flask app
+- Should really have been written as a flask app ¯\\\_(ツ)\_/¯
