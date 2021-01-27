@@ -7,7 +7,7 @@ import LapseController as ci
 
 class WebInterface():
     def __init__(self, l_config, c_config):
-        self.port = 8000
+        self.port = 80
         self.host_name = socket.gethostbyname(socket.gethostname())
         self.camera = ci.LapseController(c_config)
 
