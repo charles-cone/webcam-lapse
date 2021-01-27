@@ -4,7 +4,9 @@ WORKDIR /interface
 RUN apt-get update && apt-get install -y fswebcam
 
 COPY . .
-RUN pip install -r requirements.txt
+
+# Don't try to install on desktops
+RUN if [ uname -m != "x86_64" ]; then pip install RPi.GPIO; fi
 
 EXPOSE 80
 CMD ["python", "./main.py"]
