@@ -1,5 +1,5 @@
 # Webcam Lapse Interface
-![Docker](https://img.shields.io/github/workflow/status/charles-cone/webcam-lapse/Build%20Multi-Arch)\
+![Build Multi-Arch](https://github.com/charles-cone/webcam-lapse/workflows/Build%20Multi-Arch/badge.svg)
 A Python program for time lapses using a webcam, with a web configuration page. Designed for Raspberry Pi but
 should support most PC's, albeit without GPIO control.
 
