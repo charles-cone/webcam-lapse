@@ -1,25 +1,27 @@
 import json
 
 
-class Config():
+def parse_post_data(post):
+    data = {}
+    pairs = post.split('&')
+    for pair in pairs:
+        v = pair.split('=')
+        # check that all data has a value
+        if v[1]:
+            data[v[0]] = v[1]
+
+    return data
+
+
+class Config:
     units_to_ticks = {
         "sec": 1000,
         "min": 60000,
         "hou": 3600000
     }
 
-    def parse_post_data(self, post):
-        dict = {}
-        pairs = post.split('&')
-        for pair in pairs:
-            v = pair.split('=')
-            # check that all data has a value
-            if v[1]: dict[v[0]] = v[1]
-
-        return dict
-
-    def _get_ticks(self, len, unit):
-        return int(len) * self.units_to_ticks[unit]
+    def _get_ticks(self, amt, unit):
+        return int(amt) * self.units_to_ticks[unit]
 
     def update_data(self, p_data):
         pass
@@ -32,7 +34,7 @@ class LapseConfig(Config):
         self.duration_ticks = 0
 
     def update_data(self, p_data):
-        data = self.parse_post_data(p_data)
+        data = parse_post_data(p_data)
         if not ('i_len' in data.keys() and 'd_len' in data.keys()):
             return "No Data"
 
@@ -50,7 +52,8 @@ class LapseConfig(Config):
         if l_config.do_shutter_wait and i_ticks < l_config.shutter_wait_ticks:
             error += "Interval can not be less then the shutter delay\n"
 
-        if (l_config.do_power_wait and l_config.do_shutter_wait) and (i_ticks < l_config.power_wait_ticks + l_config.shutter_wait_ticks):
+        if (l_config.do_power_wait and l_config.do_shutter_wait) and \
+                (i_ticks < l_config.power_wait_ticks + l_config.shutter_wait_ticks):
             error += "Interval must be greater then the power wait and shutter wait combined\n"
 
         if not error:
@@ -82,23 +85,22 @@ class CaptureConfig(Config):
         self.load_json()
 
     def update_data(self, p_data):
-        data = self.parse_post_data(p_data)
+        data = parse_post_data(p_data)
         if data:
             self.load_post_data(data)
             error = ""
-            if self.do_control_power and not self.power_pin in range(0, 29):
+            if self.do_control_power and self.power_pin not in range(0, 29):
                 error += f" Power pin: {self.power_pin} is not a valid WiringPi pin\n"
 
-            if self.do_control_shutter and not self.shutter_pin in range(0, 29):
+            if self.do_control_shutter and self.shutter_pin not in range(0, 29):
                 error += f" Shutter pin: {self.shutter_pin} is not a valid WiringPi pin\n"
 
             if error:
                 self.load_json()  # load in old config
             else:
-                self.serialize_data() # save the new config
+                self.serialize_data()  # save the new config
 
             return error
-
 
     def serialize_data(self):
         with open("data/camera_config.json", 'w') as f:
@@ -113,7 +115,6 @@ class CaptureConfig(Config):
 
         except FileNotFoundError:
             self.serialize_data()
-
 
     def load_post_data(self, p_dict):
         post_to_attr = {
