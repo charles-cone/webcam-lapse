@@ -34,7 +34,7 @@ class Camera:
 
             def take_photo(self, path):
                 start = time.time()
-                print(f"fswebcam --no-banner -r {self.x_res}x{self.y_res} {path}")
+                os.system(f"fswebcam --no-banner -r {self.x_res}x{self.y_res} {path}")
                 return time.time() - start
 
         if config.do_control_power and has_gpio:
