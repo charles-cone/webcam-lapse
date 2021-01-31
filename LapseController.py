@@ -15,7 +15,7 @@ def _time_to_ticks(time):
 def _create_dir_name():
     dirs = os.listdir("data/lapses")
     if(dirs):
-        l_index = int(dirs[-1]) + 1
+        l_index = len(dirs)
     else:
         l_index = 0
 

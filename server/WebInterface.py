@@ -6,8 +6,8 @@ from server import serverFile as sf
 from Config import LapseConfig
 
 class WebInterface():
-    def __init__(self):
-        self.l_config = LapseConfig()
+    def __init__(self, config):
+        self.l_config = config
         self.port = 80
         self.host_name = socket.gethostbyname(socket.gethostname())
 

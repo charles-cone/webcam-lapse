@@ -98,6 +98,7 @@ class LapsePage(HTMLFile):
         self.error = self.l_config.update_data(p_data)
         if not bool(self.error):
             self.stop_server()
+            return True
         else:
             return False
 

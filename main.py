@@ -4,13 +4,12 @@ from server import WebInterface as wi
 
 
 def main():
+    lapse = c.LapseConfig()
+    serv = wi.WebInterface(lapse)
+    cam = ci.LapseController()
+
     while True:
-        lapse = c.LapseConfig()
-        serv = wi.WebInterface()
-
         serv.run_server()
-
-        cam = ci.LapseController()
         cam.start_lapse(lapse)
 
 
