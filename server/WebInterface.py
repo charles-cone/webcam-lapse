@@ -2,22 +2,22 @@ import http.server
 import socket
 import threading
 
-from web import serverFile as sf
-import LapseController as ci
+from server import serverFile as sf
+from Config import LapseConfig
 
 class WebInterface():
-    def __init__(self, l_config, c_config):
+    def __init__(self):
+        self.l_config = LapseConfig()
         self.port = 80
         self.host_name = socket.gethostbyname(socket.gethostname())
-        self.camera = ci.LapseController(c_config)
 
         self.files = {
-            '/': sf.LapsePage('web/site/index.html', l_config, self._stop_server),
-            '/config': sf.ConfigPage('web/site/config.html', c_config),
-            '/error': sf.ErrorPage('web/site/error.html'),
-            '/styles.css': sf.CSSFile('web/site/styles.css'),
-            '/preview.jpg': sf.PreviewFile('web/site/preview.jpg', c_config),
-            '/favicon.ico': sf.ICOFile('web/site/favicon.ico')
+            '/': sf.LapsePage('server/site/index.html', self._stop_server, self.l_config),
+            '/config': sf.ConfigPage('server/site/config.html'),
+            '/error': sf.ErrorPage('server/site/error.html'),
+            '/styles.css': sf.CSSFile('server/site/styles.css'),
+            '/preview.jpg': sf.PreviewFile('server/site/preview.jpg'),
+            '/favicon.ico': sf.ICOFile('server/site/favicon.ico')
         }
 
         handler = self._create_handler_class(self.files)
@@ -62,7 +62,6 @@ class WebInterface():
                     self.files[redirect].set_error(self.files[self.path].error, self.path)
 
                 self._redirect(redirect)
-
 
         return InterfaceHandler
 

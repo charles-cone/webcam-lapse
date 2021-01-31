@@ -1,5 +1,5 @@
 from Camera import Camera
-
+from Config import CaptureConfig
 
 class ServerFile():
     def get_file(self):
@@ -18,15 +18,13 @@ class CSSFile(ServerFile):
 
 
 class PreviewFile(ServerFile):
-    def __init__(self, path, c_config):
+    def __init__(self, path):
         self.content_type = "image/jpg"
-        self.config = c_config
         self.path = path
-        self.cam = Camera(self.config)
 
     def get_file(self):
-        self.cam.update_config(self.config)
-        self.cam.take_photo(self.path)
+        cam = Camera(CaptureConfig())
+        cam.take_photo(self.path)
         with open(self.path, 'rb') as f:
             return f.read()
 
@@ -42,9 +40,8 @@ class ICOFile(ServerFile):
 
 
 class HTMLFile(ServerFile):
-    def __init__(self, path, config):
+    def __init__(self, path):
         super().__init__()
-        self.config = config
         self.content_type = "text/html"
         self.error = ""
         with open(path, 'r') as f:
@@ -58,6 +55,10 @@ class HTMLFile(ServerFile):
 
 
 class ConfigPage(HTMLFile):
+    def __init__(self, path):
+        self.c_config = CaptureConfig()
+        super(ConfigPage, self).__init__(path)
+
     def _format_pin(self, is_on, pin):
         if is_on:
             return f"ON Pin:{pin}"
@@ -72,28 +73,29 @@ class ConfigPage(HTMLFile):
 
     def get_file(self):
         pd = self.page_data.format(
-            self._format_pin(self.config.do_control_power, self.config.power_pin),
-            self._format_time(self.config.do_power_wait, self.config.power_wait_ticks),
-            f"{self.config.x_res}px",
-            f"{self.config.y_res}px",
-            self._format_pin(self.config.do_control_shutter, self.config.shutter_pin),
-            self._format_time(self.config.do_shutter_wait, self.config.shutter_wait_ticks)
+            self._format_pin(self.c_config.do_control_power, self.c_config.power_pin),
+            self._format_time(self.c_config.do_power_wait, self.c_config.power_wait_ticks),
+            f"{self.c_config.x_res}px",
+            f"{self.c_config.y_res}px",
+            self._format_pin(self.c_config.do_control_shutter, self.c_config.shutter_pin),
+            self._format_time(self.c_config.do_shutter_wait, self.c_config.shutter_wait_ticks)
         )
 
         return pd.encode("utf-8")
 
     def handle_post(self, p_data):
-        self.error = self.config.update_data(p_data)
+        self.error = self.c_config.update_data(p_data)
         return not bool(self.error)
 
 
 class LapsePage(HTMLFile):
-    def __init__(self, path, config, c_func):
-        super().__init__(path, config)
+    def __init__(self, path, c_func, l_config):
+        super().__init__(path)
         self.stop_server = c_func
+        self.l_config = l_config
 
     def handle_post(self, p_data):
-        self.error = self.config.update_data(p_data)
+        self.error = self.l_config.update_data(p_data)
         if not bool(self.error):
             self.stop_server()
         else:
@@ -105,7 +107,7 @@ class LapsePage(HTMLFile):
 
 class ErrorPage(HTMLFile):
     def __init__(self, path):
-        super().__init__(path, None)
+        super().__init__(path)
         self.msg = ""
         self.redirect = ""
 

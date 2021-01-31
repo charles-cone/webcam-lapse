@@ -2,7 +2,7 @@ import os
 import time
 
 from Camera import Camera
-
+from Config import CaptureConfig
 
 def _sleep_ticks(ticks):
     time.sleep(ticks / 1000)
@@ -23,8 +23,8 @@ def _create_dir_name():
 
 
 class LapseController():
-    def __init__(self, c_config):
-        self.cam = Camera(c_config)
+    def __init__(self):
+        self.cam = Camera(CaptureConfig())
 
     def start_lapse(self, l_config):
         dir_name = os.path.join("data/lapses", _create_dir_name())

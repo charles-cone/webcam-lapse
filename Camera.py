@@ -2,13 +2,13 @@ import time
 import os
 
 
-class Camera():
+class Camera:
     __camera_controller = None
     __config = None
     __has_GPIO = False
 
     def __init__(self, c_config):
-        if Camera.__camera_controller != None:
+        if not Camera.__camera_controller:
             self.update_config(c_config)
         else:
             Camera.__config = c_config
@@ -27,14 +27,14 @@ class Camera():
         config = Camera.__config
         has_gpio = Camera.__has_GPIO
 
-        class CameraController():
+        class CameraController:
             def __init__(self):
                 self.x_res = c_config.x_res
                 self.y_res = c_config.y_res
 
             def take_photo(self, path):
                 start = time.time()
-                os.system(f"fswebcam --no-banner -r {self.x_res}x{self.y_res} {path}")
+                print(f"fswebcam --no-banner -r {self.x_res}x{self.y_res} {path}")
                 return time.time() - start
 
         if config.do_control_power and has_gpio:
