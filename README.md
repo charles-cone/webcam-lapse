@@ -5,11 +5,11 @@ should support most PC's, albeit without GPIO control.
 
 ## Usage:
 ### Docker:
-Install with `docker pull charlescone:webcam-lapse-interface` and then 
-`docker run -p80:8000 --privleged -d charlescone/webcam-lapse-interface`
+Install with `docker pull charlescone:webcam-lapse-interface` and then \
+`docker run -d -p 80:80 -v /data:/data --device=/dev/video0:/dev/video0 --privileged charlescone/webcam-lapse`
 
 ### Standalone:
-Install `fswebcam` and `pip install -r requirements.txt` then `sudo run python3 main.py`
+Install `fswebcam` and then `sudo run python3 main.py`
 
 #### Note:
 If GPIO is not needed the `--privliged` and `sudo` can be omitted 
@@ -22,5 +22,3 @@ If GPIO is not needed the `--privliged` and `sudo` can be omitted
 ## Misc:
 ### About:
 - I wrote this to take photos with an old security camera I was gifted.
-### Shortcomings:
-- Should really have been written as a flask app ¯\\\_(ツ)\_/¯
